@@ -26,7 +26,7 @@ services:
     group: kafka
     environment:
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-      KAFKA_OPTS: "-javaagent:/opt/kafka/jmx_prometheus_javaagent.jar=\n
+      KAFKA_OPTS: "-javaagent:/opt/kafka/libs/jmx_prometheus_javaagent.jar=\n
         9101:/etc/kafka/jmx_prometheus.yaml\n
         -Djava.security.auth.login.config=\n
         /etc/kafka/kafka-jaas.cfg"
@@ -54,9 +54,6 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/var/log/kafka/
       mkdir -p $CRAFT_PART_INSTALL/opt/kafka/
       mkdir -p $CRAFT_PART_INSTALL/etc/kafka/
-    override-prime: |
-      craftctl default
-      rm -vf usr/lib/jvm/java-17-openjdk-amd64/lib/security/cacerts
     organize:
       bin: opt/kafka/bin/
       libs: opt/kafka/libs/
