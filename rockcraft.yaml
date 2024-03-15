@@ -3,7 +3,7 @@
 ---
 name: charmed-kafka  # the name of your ROCK
 base: ubuntu@22.04  # the base environment for this ROCK
-version: '3.6.0'  # just for humans. Semantic versioning is recommended
+version: '3.6.1'  # just for humans. Semantic versioning is recommended
 summary: Charmed Kafka ROCK OCI  # 79 char long summary
 description: |
   This is an OCI image that bundles Apache Kafka together with other tools
@@ -25,7 +25,7 @@ services:
     user: kafka
     group: kafka
     environment:
-      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      JAVA_HOME: /usr/lib/jvm/java-18-openjdk-amd64
       KAFKA_OPTS: "-javaagent:/opt/kafka/libs/jmx_prometheus_javaagent.jar=\n
         9101:/etc/kafka/jmx_prometheus.yaml\n
         -Djava.security.auth.login.config=\n
@@ -35,17 +35,17 @@ parts:
   kafka:
     plugin: nil
     stage-packages:
-      - openjdk-17-jre-headless
+      - openjdk-18-jre-headless
       - libpsl5
       - curl
     build-environment:
-      - JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      - JAVA_HOME: /usr/lib/jvm/java-18-openjdk-amd64
     stage-snaps:
       - charmed-kafka/3/edge
     override-build: |
-      ln -s /usr/lib/jvm/java-17-openjdk-amd64/bin/java \
+      ln -s /usr/lib/jvm/java-18-openjdk-amd64/bin/java \
         $CRAFT_PART_INSTALL/usr/bin/java
-      ln -s /usr/lib/jvm/java-17-openjdk-amd64/bin/keytool \
+      ln -s /usr/lib/jvm/java-18-openjdk-amd64/bin/keytool \
         $CRAFT_PART_INSTALL/usr/bin/keytool
 
       # making core dirs
