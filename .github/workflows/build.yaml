@@ -1,4 +1,4 @@
-name: Build ROCK
+name: Build rock
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -38,7 +38,7 @@ jobs:
         run: |
           sudo snap install yq
           sudo snap install rockcraft --classic --edge
-      - name: Build ROCK
+      - name: Build rock
         id: build
         run: |
           rockcraft pack --verbose
@@ -46,7 +46,7 @@ jobs:
           VERSION=$(yq '.version' rockcraft.yaml)
           echo "rock=charmed-kafka_${VERSION}_amd64.rock" >> $GITHUB_OUTPUT
 
-      - name: Upload locally built ROCK artifact
+      - name: Upload locally built rock artifact
         uses: actions/upload-artifact@v3
         with:
           name: charmed-kafka
